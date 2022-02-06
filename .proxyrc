@@ -1,0 +1,9 @@
+{
+  "/api": {
+    "target": "https://m.weibo.cn/",
+    "pathRewrite": {
+      "^/api": ""
+    },
+    changeOrigin: true
+  }
+}

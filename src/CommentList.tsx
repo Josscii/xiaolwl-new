@@ -42,10 +42,20 @@ const CommentList: FunctionComponent = () => {
     };
   });
 
+  if (commentList.length === 0) {
+    return (
+      <Wrapper>
+        {[...Array(10).keys()].map((value) => (
+          <Comment key={value} />
+        ))}
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
       {commentList.map((comment) => {
-        return <Comment key={comment.id} {...comment} />;
+        return <Comment key={comment.id} comment={comment} />;
       })}
     </Wrapper>
   );

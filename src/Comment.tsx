@@ -4,28 +4,48 @@ import { PartialComment } from "./ApiResponseTypes";
 import * as dayjs from "dayjs";
 import * as relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/zh-cn";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 dayjs.extend(relativeTime);
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 dayjs.locale("zh-cn");
 
-const Comment: FunctionComponent<PartialComment> = (props) => {
+const Comment: FunctionComponent<{
+  comment?: PartialComment;
+}> = (props) => {
   return (
     <Wrapper>
       <TopWrapper>
-        <AvatarWrapper>
-          <Avatar src={props.user.profile_image_url} />
-        </AvatarWrapper>
-        <Name>{props.user.screen_name}</Name>
+        {props.comment ? (
+          <Avatar src={props.comment.user.profile_image_url} />
+        ) : (
+          <Skeleton width={30} />
+        )}
+        <Name>
+          {props.comment ? (
+            props.comment.user.screen_name
+          ) : (
+            <Skeleton width={30} />
+          )}
+        </Name>
         <Time>
-          {
+          {props.comment ? (
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-            dayjs(props.created_at).fromNow()
-          }
+            dayjs(props.comment.created_at).fromNow()
+          ) : (
+            <Skeleton width={30} />
+          )}
         </Time>
       </TopWrapper>
-      <Content dangerouslySetInnerHTML={{ __html: props.text }}></Content>
+      {props.comment ? (
+        <Content
+          dangerouslySetInnerHTML={{ __html: props.comment.text }}
+        ></Content>
+      ) : (
+        <Skeleton />
+      )}
     </Wrapper>
   );
 };
@@ -40,14 +60,13 @@ const Wrapper = styled.div`
 const TopWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 `;
 
-const AvatarWrapper = styled.div``;
-
 const Avatar = styled.img`
+  border-radius: 50%;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
 `;
 
 const Name = styled.p`
@@ -61,8 +80,6 @@ const Time = styled.p`
 `;
 
 const Content = styled.p`
-  margin-top: 10px;
-
   & img {
     display: inline;
   }

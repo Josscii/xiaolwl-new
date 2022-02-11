@@ -7,9 +7,7 @@ import "dayjs/locale/zh-cn";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 dayjs.extend(relativeTime);
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 dayjs.locale("zh-cn");
 
 const Comment: FunctionComponent<{
@@ -32,7 +30,6 @@ const Comment: FunctionComponent<{
         </Name>
         <Time>
           {props.comment ? (
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             dayjs(props.comment.created_at).fromNow()
           ) : (
             <Skeleton width={30} />

@@ -21,6 +21,4 @@ const Wrapper = styled.div`
 
 const Link = styled.a``;
 
-const PostImage = styled.img`
-  width: 100%;
-`;
+const PostImage = styled.img``;

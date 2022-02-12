@@ -19,7 +19,7 @@ const Comment: FunctionComponent<{
         {props.comment ? (
           <Avatar src={props.comment.user.profile_image_url} />
         ) : (
-          <Skeleton width={30} />
+          <Skeleton width={30} height={30} circle={true} />
         )}
         <Name>
           {props.comment ? (
@@ -58,6 +58,7 @@ const TopWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  line-height: 0;
 `;
 
 const Avatar = styled.img`
@@ -69,11 +70,13 @@ const Avatar = styled.img`
 const Name = styled.p`
   margin-left: 8px;
   font-size: 0.8rem;
+  line-height: 1.5;
 `;
 
 const Time = styled.p`
   margin-left: auto;
   font-size: 0.8rem;
+  line-height: 1.5;
 `;
 
 const Content = styled.p`
